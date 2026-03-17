@@ -1,0 +1,818 @@
+arXiv:2410.09097v2 [cs.CL] 17 Dec 2024
+
+Recent advancements in LLM Red-Teaming:
+Techniques, Defenses, and Ethical Considerations
+
+Tarun Raheja
+Independent Researcher
+San Francisco, USA
+traheja@alumni.upenn.edu
+
+Nilay Pochhi
+Independent Researcher
+San Francisco, USA
+pochhi.nilay@gmail.com
+
+F.D.C.M. Curie
+Independent Research Associate
+San Francisco, USA
+
+Abstract
+Large Language Models (LLMs) have demonstrated remarkable capabilities in
+natural language processing tasks, but their vulnerability to jailbreak attacks poses
+significant security risks. This survey paper presents a comprehensive analysis of
+recent advancements in attack strategies and defense mechanisms within the field
+of Large Language Model (LLM) red-teaming. We analyze various attack methods, including gradient-based optimization, reinforcement learning, and prompt
+engineering approaches. We discuss the implications of these attacks on LLM
+safety and the need for improved defense mechanisms. This work aims to provide
+a thorough understanding of the current landscape of red-teaming attacks and
+defenses on LLMs, enabling the development of more secure and reliable language
+models.
+
+1
+
+Introduction
+
+Large Language Models (LLMs) have shown immense potential in various natural language processing tasks. However, the safety and security of LLMs remain a major concern, as these models
+can be exploited to generate harmful, unethical, or biased content. This has led to an active research
+area focused on red-teaming LLMs, which involves probing and evaluating their vulnerabilities to
+adversarial attacks.
+
+2
+
+Automated Red-Teaming for LLMs
+
+Red-teaming is a crucial step for both model alignment and evaluation, but manual red-teaming is
+labor-intensive and difficult to scale. This has led to the development of automated red-teaming
+techniques, which automatically generate adversarial prompts or inputs to elicit undesirable responses
+from LLMs. Perez et al. [2022] was one of the first to explore automated red-teaming, demonstrating
+that another LLM could be used to generate test cases that uncover harmful outputs from a target
+LLM.
+
+Preprint. Under review.
+
+2.1
+
+Reinforcement Learning based Red-Teaming
+
+Many automated red-teaming methods rely on reinforcement learning (RL). In these methods, an
+attacker language model is trained to generate prompts that maximize the likelihood of eliciting
+undesirable responses from the target LLM, often measured by an auxiliary safety classifier.
+Lee et al. [2024] proposes using GFlowNet fine-tuning followed by a smoothing phase to train the
+attacker model, aiming to generate diverse and effective attack prompts. This method addresses
+the mode collapse issue observed in previous RL-based approaches. Similarly, Hong et al. [2024]
+leverages curiosity-driven exploration to enhance the coverage and diversity of generated test cases,
+leading to a more comprehensive assessment of the target LLM’s vulnerabilities. Zhao et al. [2024a]
+further introduces DiveR-CT, which relaxes conventional constraints on objective and semantic
+rewards to enhance the diversity of generated adversarial prompts. Jiang et al. [2024] proposes DART,
+which uses a deep adversarial interaction between a red team LLM and a target LLM to discover and
+address safety vulnerabilities in an iterative manner.
+2.2
+
+Black-box Red Teaming
+
+Several studies focus on black-box red-teaming, where the attacker has limited access to the target
+LLM. This is particularly important as many real-world LLM APIs are black-box.
+Lee et al. [2023] utilizes Bayesian optimization to efficiently discover diverse failure cases with a
+limited query budget. Pala et al. [2024] improves upon Rainbow Teaming by introducing a scoring
+function to rank and select the most effective adversarial prompts, achieving higher attack success
+rates and efficiency. Xu et al. [2024a] presents RedAgent, a multi-agent LLM system that models
+jailbreak strategies and leverages them to generate context-aware jailbreak prompts for targeted
+attacks on LLM applications.
+2.3
+
+Prompt Engineering and Optimization
+
+Prompt engineering plays a crucial role in designing effective jailbreak prompts.
+Deng et al. [2023a] combines manual and automatic methods to generate high-quality attack prompts,
+leveraging LLMs to mimic human-generated prompts through in-context learning. Paulus et al.
+[2024] introduces a novel algorithm that utilizes another LLM, called AdvPrompter, to generate
+human-readable adversarial prompts by optimizing for effectiveness and speed. Salem et al. [2023]
+proposes Maatphor, a tool that assists defenders in performing automated variant analysis of prompt
+injection attacks. It generates variants of existing attack prompts to test defenses against a wider
+range of potential attacks. Liu et al. [2023b] presents a framework for constructing goal-oriented
+prompt attacks, aiming to induce LLMs to generate unexpected outputs by leveraging carefully
+crafted prompt templates.
+2.4
+
+Transferability and Generalization
+
+The transferability and generalization of jailbreak attacks across different LLMs are important
+considerations for red-teaming.
+Ding et al. [2023] proposes ReNeLLM, a framework that leverages LLMs themselves to generate
+generalized jailbreak prompts, achieving higher attack success rates and efficiency. Wichers et al.
+[2024] presents Gradient-Based Red Teaming (GBRT), an automatic method that utilizes gradients
+to generate diverse prompts that trigger unsafe responses, even when the target LLM has been
+safety-tuned. Doumbouya et al. [2024] introduces h4rm3l, a dynamic benchmark of composable
+jailbreak attacks that leverages a domain-specific language and program synthesis to generate novel
+and effective attack prompts. Zhou et al. [2024b] presents EasyJailbreak, a unified framework that
+simplifies the construction and evaluation of various jailbreak attacks, enabling researchers to easily
+combine novel and existing components. Deng et al. [2023b] proposes Jailbreaker, an automated
+method that leverages time-based characteristics of LLM generation to identify and bypass defenses
+employed by mainstream chatbot services.
+2
+
+Figure 1: Attack Strategies
+
+Figure 2: Defense Strategies
+
+3
+
+Novel Attack Strategies and Benchmarking
+
+Researchers continue to explore novel attack strategies to push the boundaries of LLM red-teaming.
+Recent advancements in LLM red-teaming have led to the development of innovative attack strategies,
+each exploiting unique vulnerabilities in language models: Recent research has introduced several
+innovative approaches to challenge and evaluate the security of Large Language Models (LLMs).
+These novel attack strategies exploit various vulnerabilities and characteristics of LLMs, pushing the
+boundaries of red-teaming methodologies.
+The Tastle Framework, proposed by Xiao et al. [2024], leverages LLMs’ distractibility and overconfidence. By employing malicious content concealment and memory reframing techniques, Tastle
+successfully jailbreaks language models, exposing critical weaknesses in their defense mechanisms.
+Addressing the issue of unrealistic attack prompts, Hardy et al. [2024] introduced ASTPrompter. This
+method utilizes a novel reinforcement learning formulation to generate prompts that are both toxic
+and likely to occur in real-world scenarios, thereby increasing the practical relevance of red-teaming
+exercises. Exploiting the concept of social facilitation, the Social Prompt (SoP) method developed
+by Yang et al. [2024a] generates and optimizes jailbreak prompts using multiple character personas.
+This approach taps into LLMs’ susceptibility to social influences, revealing a unique vulnerability
+in their decision-making processes. Yu et al. [2023] introduced GPTFuzz, an automated fuzzing
+framework that generates jailbreak templates by mutating human-written seed templates. This method
+exposes LLMs’ sensitivity to subtle prompt variations, highlighting the need for more robust input
+processing mechanisms. The WordGame strategy, proposed by Zhang et al. [2024c], takes a different
+approach by simultaneously obfuscating queries and responses. This method effectively bypasses
+safety alignment measures in LLMs, demonstrating the potential vulnerabilities in current content
+filtering systems. Taking a ground-up approach, the Explore Framework developed by Casper et al.
+[2023] starts by exploring model behavior to establish definitions of undesirable outputs. It then
+leverages these insights to develop effective red-teaming strategies, providing a more comprehensive
+understanding of LLM vulnerabilities. Building upon previous work, Deng et al. [2023c] introduced
+MASTERKEY, which extends the Jailbreaker framework by incorporating time-sensitive methods to
+circumvent LLM defenses. This automated approach demonstrates potential temporal vulnerabilities
+in chatbot security measures, opening new avenues for security research.
+3.1
+
+Evaluation Frameworks and Benchmarks
+
+Standardized benchmarks and evaluation frameworks are crucial for comparing different red-teaming
+methods and tracking progress in LLM security.
+Mazeika et al. [2024] introduces HarmBench, a standardized evaluation framework for both automated
+red-teaming and robust refusal. This framework enables the systematic comparison of various attack
+3
+
+and defense methods. Tian et al. [2023] proposes Evil Geniuses, a method for evaluating the safety
+of LLM-based agents by generating prompts that target vulnerabilities specific to different roles and
+interaction environments.
+
+4
+
+Defense Strategies and Mitigation Techniques
+
+Defending against jailbreak attacks and enhancing the robustness of LLMs are crucial aspects of
+responsible AI development.
+Xu et al. [2023b] introduces PromptAttack, a prompt-based adversarial attack that leverages the LLM
+itself to generate adversarial samples. Mangaokar et al. [2024] proposes PRP, a novel attack strategy
+that targets guard models, the additional layer of defense used in some LLMs, highlighting the need
+for more robust defenses. Srivastava et al. [2023] builds upon previous work to develop a pipeline
+for automated test case generation, experimenting with different target LLMs and red classifiers to
+enhance the effectiveness of red-teaming. Jia et al. [2024] investigates techniques to improve the
+efficiency of optimization-based jailbreaking methods like GCG, proposing diverse target templates
+and adaptive optimization strategies. Liu et al. [2023c] introduces AutoDAN, an automated method
+that generates stealthy and semantically meaningful jailbreak prompts using a hierarchical genetic
+algorithm.
+4.1
+
+Defenses based on Decoding, Prompt Modification and Alignment
+
+Several defense strategies focus on modifying the decoding process or altering prompt inputs to
+mitigate jailbreak attacks.
+Zhang et al. [2024b] proposes EnJa, an ensemble jailbreak approach that combines prompt-level
+and token-level attacks for improved effectiveness. Huang et al. [2023] investigates generation
+exploitation attacks that disrupt LLM alignment by manipulating decoding hyper-parameters and
+sampling methods, highlighting the need for more comprehensive alignment procedures. Xu et al.
+[2024d] introduces TroubleLLM, an LLM designed for generating controllable test prompts for
+evaluating LLM safety issues, enabling more focused testing. Moss [2024] utilizes Monte Carlo Tree
+Search to find harmful behaviors in black-box LLMs, emphasizing the importance of query efficiency
+in red-teaming. Lapid et al. [2023] proposes a genetic algorithm-based approach for generating
+universal adversarial prompts that can jailbreak black-box LLMs. Li et al. [2024c] leverages ideas
+from transfer-based attacks in image classification to enhance the effectiveness of adversarial prompt
+generation against LLMs. Mehrabi et al. [2023a] proposes FLIRT, a feedback loop in-context
+red-teaming method that utilizes in-context learning to automatically learn effective adversarial
+prompts for text-to-image models. Mehrotra et al. [2023] presents Tree of Attacks with Pruning
+(TAP), an automated method that utilizes an LLM to iteratively refine prompts using tree-of-thought
+reasoning, achieving efficient jailbreak with limited queries. Bhardwaj and Poria [2023] proposes
+RED-INSTRUCT, an approach for LLM safety alignment that leverages a chain of utterances to
+collect harmful questions and conversational data for safety-focused fine-tuning. Samvelyan et al.
+[2024] introduces Rainbow Teaming, a quality-diversity search-based approach for generating diverse
+and effective adversarial prompts, demonstrating its applicability across various domains.
+4.2
+
+Prompt Structure and Obfuscation
+
+Understanding and exploiting the structural characteristics of prompts are crucial for both attack and
+defense strategies.
+Kassem et al. [2024] investigates the use of instruction-based prompts to uncover LLM memorization,
+showing that these prompts can expose pre-training data more effectively than direct training data
+probing. Li et al. [2024a] explores the impact of uncommon text-encoded structures (UTES) on
+jailbreak attacks, demonstrating that prompt structure significantly contributes to attack effectiveness.
+Chen et al. [2024c] proposes RL-JACK, a reinforcement learning-powered black-box jailbreaking
+attack that formulates prompt generation as a search problem and optimizes it using a customized
+RL approach. Jawad and Brunel [2024] introduces QROA, a black-box attack that iteratively
+updates tokens to maximize a designed reward function, demonstrating the feasibility of black-box
+optimization for jailbreaking.
+4
+
+4.3
+
+Multimodal and Multilingual Jailbreaking
+
+As LLMs become increasingly multimodal and multilingual, new attack vectors and vulnerabilities
+emerge.
+Wu et al. [2023] investigates vulnerabilities in GPT-4V by exploiting system prompt leakage, demonstrating the potential risks of multimodal attacks. Lin et al. [2024a] introduces Analyzing-based
+Jailbreak (ABJ), a method that exploits LLMs’ analytical and reasoning capabilities to induce harmful
+behavior. Lv et al. [2024] proposes AdaPPA, a jailbreak attack approach that utilizes the model’s
+instruction-following and narrative-shifting capabilities to generate harmful content. Li et al. [2024d]
+introduces DrAttack, a framework that decomposes and reconstructs prompts to obfuscate malicious
+intent, achieving higher attack success rates with fewer queries. Chen et al. [2024a] utilizes wordplay
+and LLM’s summarization capabilities to generate diverse universal mapping rules for crafting
+adversarial prompts, improving the efficiency of jailbreaking.
+
+4.4
+
+False Refusals and Over-Refusals
+
+While safety alignment is crucial for preventing harmful outputs, it can also lead to over-refusal,
+where LLMs reject even harmless prompts.
+An et al. [2024] focuses on generating pseudo-harmful prompts to evaluate false refusals in LLMs,
+highlighting the trade-off between minimizing false refusals and improving safety. Xu et al. [2023a]
+investigates cognitive overload attacks that target the cognitive structure and processes of LLMs,
+demonstrating their vulnerability to multilingual overload, veiled expression, and effect-to-cause
+reasoning. Li et al. [2024e] introduces JailMine, a token-level manipulation approach for jailbreaking
+that automates the process of eliciting malicious responses, addressing concerns about scalability and
+efficiency. Lu et al. [2024] presents AutoJailbreak, a framework that analyzes dependencies between
+jailbreak attacks and defenses, proposing ensemble attack and defense approaches. Taveekitworachai
+et al. [2024] explores the use of prompt evolution through examples to optimize prompts for specific
+tasks, demonstrating its applicability in toxicity classification. Sun et al. [2024] investigates multi-turn
+context jailbreak attacks, proposing CFA, a context-based method that dynamically integrates the
+target into contextual scenarios to conceal malicious intent. Zhang and Wan [2024] introduces ASRA,
+a prompt optimization algorithm that utilizes determinantal point process (DPP) to select prompts
+based on both quality and similarity. Andriushchenko et al. [2024] demonstrates that even the most
+recent safety-aligned LLMs are vulnerable to simple adaptive jailbreaking attacks, highlighting the
+importance of adaptive strategies for red-teaming.
+
+5
+
+Understanding the Underlying Mechanisms of Jailbreaking
+
+Understanding the underlying mechanisms of jailbreaking attacks is crucial for developing more
+effective defenses and robust LLM systems.
+Lin et al. [2024b] investigates the behavior of harmful and harmless prompts in the LLM’s representation space, hypothesizing that successful jailbreak attacks move the representation of harmful
+prompts toward the direction of harmless prompts. Xu et al. [2024c] introduces SafeDecoding, a
+safety-aware decoding strategy that amplifies the probabilities of safety disclaimers while attenuating
+those of potentially harmful content. Chao et al. [2023] proposes PAIR, an efficient black-box
+jailbreak algorithm inspired by social engineering attacks, demonstrating the effectiveness of iterative prompt refinement. Das et al. [2024] explores converting nonsensical jailbreak prompts into
+human-understandable prompts by utilizing situational context, highlighting the need for defenses
+that consider context and meaning. Sitawarin et al. [2024] introduces PAL, a proxy-guided black-box
+attack that utilizes a surrogate model to optimize adversarial triggers. Shi et al. [2022] proposes
+PromptAttack, a method for constructing malicious prompt templates by investigating unfriendly
+template construction approaches. Yang et al. [2022] explores the use of prompt-based adversarial
+attacks for both adversarial example generation and robustness enhancement. Yu et al. [2024] introduces LLM-Fuzzer, an automated fuzzing framework for discovering jailbreak vulnerabilities at
+scale.
+5
+
+5.1
+
+Advanced Defense Strategies and Future Directions
+
+Several studies propose advanced defense strategies and explore new directions for securing LLMs
+against jailbreak attacks.
+Tan et al. [2023] presents COVER, a heuristic greedy attack algorithm that targets vulnerabilities in
+prompt-based learning. Wu et al. [2024b] investigates the potential of LLMs to automatically generate
+jailbreak prompts, highlighting the need for stronger defenses against automated attacks. Karkevandi
+et al. [2024] utilizes reinforcement learning to optimize adversarial triggers, enabling effective blackbox attacks on aligned LLMs. Mehrabi et al. [2023b] introduces JAB, a joint adversarial prompting
+and belief augmentation framework that aims to simultaneously probe and improve the robustness of
+LLMs. Shen et al. [2024] proposes RIPPLE, an optimization-based method inspired by psychological
+concepts to generate diverse and potent jailbreaking prompts. Wang et al. [2023] introduces the
+concept of a semantic firewall and proposes self-deception attacks that can bypass such defenses
+by inducing LLMs to generate their own jailbreak prompts. Yao et al. [2023] presents FuzzLLM,
+an automated fuzzing framework that leverages templates and constraints to efficiently discover
+jailbreak vulnerabilities. Ramesh et al. [2024] demonstrates that GPT-4 can jailbreak itself with high
+success rates using self-explanation, highlighting the importance of LLMs’ reflective capabilities in
+security considerations. Qiang et al. [2024] investigates data poisoning attacks during instruction
+tuning, proposing a gradient-guided approach to learn adversarial triggers. Jin et al. [2024] introduces
+GUARD, a role-playing system that leverages existing jailbreak characteristics and a knowledge
+graph to generate new jailbreak prompts. Zhou et al. [2024c] proposes Virtual Context, a method
+that enhances jailbreak attacks by injecting special tokens to increase success rates. Li et al. [2024b]
+introduces ART, an automatic red-teaming framework for text-to-image models that leverages both
+vision and language models to identify vulnerabilities.
+5.2
+
+Prompt Optimization, Defense and Detection
+
+Prompt optimization plays a crucial role in both attack and defense strategies, leading to the development of specialized methods for enhancing the security of LLMs.
+Deng et al. [2022] proposes RLPrompt, a reinforcement learning-based approach for optimizing
+discrete text prompts, demonstrating its applicability across various LLM types and tasks. Wang
+et al. [2024a] introduces ASETF, a framework that utilizes adversarial suffix embedding translation
+to generate coherent and understandable jailbreak prompts. Niu et al. [2024] explores the use
+of visual modality to enhance the efficiency of LLM jailbreaking, demonstrating its effectiveness
+against various LLM models. Huang et al. [2024b] proposes a reinforcement learning-driven query
+refinement framework to enhance LLM capability and robustness against jailbreak attacks. Huang
+et al. [2024a] introduces ObscurePrompt, a method for generating stealthy jailbreak prompts by
+obscuring the original prompt using LLMs. Jain et al. [2023] investigates the performance of
+baseline defense strategies against adversarial attacks, focusing on detection, input preprocessing,
+and adversarial training. Ge et al. [2023] proposes MART, a multi-round automatic red-teaming
+method that iteratively generates adversarial prompts and improves the safety of the target LLM.
+Wang et al. [2024c] introduces SelfDefend, a generic framework that employs a shadow LLM to
+protect the target LLM, showcasing its effectiveness against various jailbreak attacks. Hu et al.
+[2023] proposes token-level adversarial prompt detection methods based on perplexity measures and
+contextual information. Mo et al. [2024b] introduces Prompt Adversarial Tuning (PAT), a method
+that trains a prompt control prefix to defend against jailbreak attacks. Kim et al. [2024] proposes
+a robust safety classifier, Adversarial Prompt Shield, designed to detect and mitigate adversarial
+prompts, demonstrating its effectiveness in reducing attack success rates.
+
+6
+
+Benchmarking and Evaluation
+
+Benchmarking and evaluation are crucial for comparing different jailbreak attacks, defense strategies,
+and tracking progress in LLM security.
+Chao et al. [2024] introduces JailbreakBench, an open robustness benchmark for jailbreaking LLMs,
+providing a standardized framework for evaluating attack and defense methods. Greshake et al.
+[2023] investigates indirect prompt injection attacks on LLM-integrated applications, highlighting the
+vulnerabilities arising from the integration of LLMs into real-world systems. Helbling et al. [2023]
+6
+
+proposes LLM Self Defense, a simple yet effective method that utilizes an LLM to screen generated
+responses for harmful content, demonstrating its efficacy against various attacks. Zhao et al. [2024b]
+introduces Layer-specific Editing (LED), a defense mechanism that leverages the analysis of LLM
+layers to improve alignment against jailbreak attacks. Schulhoff et al. [2023] launches a global-scale
+prompt hacking competition, collecting a large dataset of adversarial prompts and developing a
+taxonomy of attack types.
+6.1
+
+Addressing Specific Vulnerabilities
+
+Researchers are focusing on developing techniques to address specific vulnerabilities and refine the
+understanding of LLM security.
+Li et al. [2023] establishes a benchmark for evaluating the robustness of instruction-following LLMs
+against prompt injection attacks, highlighting the need to improve LLMs’ understanding of prompt
+context. Liu et al. [2023a] investigates adversarial attacks on ChatGPT, proposing prefix prompt
+mechanisms and external detection models for mitigation. Kumar et al. [2024] analyzes the impact of
+fine-tuning and quantization on LLM safety, demonstrating their potential to increase the success
+rates of jailbreak attacks. Chen et al. [2024b] introduces StruQ, a defense mechanism that utilizes
+structured queries to separate prompts and data, improving resistance against prompt injection attacks.
+Yi et al. [2023] proposes BIPIA, a benchmark for evaluating indirect prompt injection attacks,
+analyzing the underlying reasons for their success and proposing defense strategies. Hines et al.
+[2024] introduces spotlighting, a family of prompt engineering techniques to improve LLMs’ ability
+to distinguish between multiple input sources, mitigating indirect prompt injection attacks. Yung et al.
+[2024] proposes Round Trip Translation (RTT), a novel defense method that paraphrases adversarial
+prompts to enhance LLM’s ability to detect harmful behaviors. Perez and Ribeiro [2022] introduces
+PromptInject, a framework for analyzing and generating adversarial prompts, highlighting potential
+vulnerabilities in deployed LLMs. Hajipour et al. [2023] proposes CodeLMSec, a benchmark for
+evaluating the security of code language models, focusing on their susceptibility to generating
+vulnerable code. Liu et al. [2023d] presents an empirical study on jailbreaking ChatGPT through
+prompt engineering, analyzing the distribution of jailbreak prompt patterns and their effectiveness
+in circumventing constraints. Chern et al. [2024] explores the use of multi-agent debate to mitigate
+adversarial attacks, demonstrating its potential to reduce model toxicity when LLMs engage in
+self-evaluation and feedback. Wang et al. [2024b] utilizes reinforcement learning to develop an
+LLM agent for automated attacks on other LLMs, enabling targeted attacks with precise control over
+the output. Toyer et al. [2023] introduces Tensor Trust, a dataset of human-generated adversarial
+examples for instruction-following LLMs, providing insights into real-world attack strategies.
+
+7
+
+Expanding the Scope of Red Teaming
+
+Recent studies aim to expand the scope of red teaming by incorporating ethical considerations, human
+factors, and broader societal implications.
+Greenblatt et al. [2023] focuses on improving the safety of AI systems despite intentional subversion,
+proposing robust protocols that utilize trusted models and human feedback for mitigating potential
+risks. Feng et al. [2024] introduces JailbreakLens, a visual analytics system designed to facilitate
+the analysis and understanding of jailbreak attacks. Wu et al. [2024a] presents a vision paper that
+emphasizes the potential of LLMs to defend themselves against jailbreak attacks by leveraging their
+own capabilities for detecting harmful prompts. Llaca et al. [2023] explores the use of studentteacher prompting for red-teaming, aiming to improve the effectiveness of guardrails in LLMs.
+Zhao et al. [2023b] investigates the use of prompts as triggers for backdoor attacks, highlighting
+the vulnerabilities of prompt-based learning to malicious manipulations. Nguyen et al. [2022]
+proposes CTI4AI, a system for generating and sharing AI security threat intelligence, emphasizing
+the need for collaborative efforts to enhance LLM security. Liu et al. [2023e] presents a framework
+for formalizing and benchmarking prompt injection attacks and defenses, enabling a systematic
+evaluation of vulnerabilities and mitigation strategies. Wang et al. [2023] proposes Self-Guard,
+a method that leverages the LLM itself to review and tag its responses for potential harmfulness,
+combining advantages of safety training and safeguards. Chen et al. [2023] introduces a moving target
+defense (MTD) approach to enhance LLM security, aiming to balance helpfulness and harmlessness
+by dynamically selecting outputs from multiple model candidates.
+7
+
+7.1
+
+Exploring Biases and Societal Implications
+
+The ethical considerations of LLM development, including biases, misinformation, and societal
+impact, are receiving increasing attention.
+Yang et al. [2024c] assesses the adversarial robustness of LLMs, highlighting the influence of model
+size, structure, and fine-tuning strategies on their resistance to attacks. Xu et al. [2024b] proposes a
+multi-agent attacker-disguiser game approach to mitigate refusal responses in LLM defense, enabling
+a more subtle defense mechanism. Ji et al. [2024] introduces PKU-SafeRLHF, a safety alignment
+preference dataset for Llama-family models, facilitating research on safety and harmlessness in LLMs.
+Liu et al. [2024a] proposes a prefix-model for mitigating toxic outputs by reconstructing prompts
+with minimal additional tokens, enhancing LLM safety and efficiency. Deng et al. [2024] investigates
+RAG poisoning attacks on GPTs, showcasing the vulnerabilities of retrieval-augmented generation
+to adversarial manipulations. Zhou et al. [2024a] presents PAD, a purple-teaming approach that
+combines red-teaming and blue-teaming techniques for iteratively improving LLM safety. Kruspe
+[2024] explores methods for detecting unanticipated biases in LLMs, emphasizing the importance
+of Uncertainty Quantification and Explainable AI for transparency and fairness. Mo et al. [2024a]
+maps adversarial attacks against language agents, proposing a unified framework for understanding
+the security risks of increasingly complex LLM-based systems. Sheshadri et al. [2024] investigates
+latent adversarial training (LAT) to enhance the robustness of LLMs against harmful behaviors. Hui
+et al. [2024] explores prompt leaking attacks, highlighting the risks of compromising intellectual
+property and enabling downstream attacks. Agarwal et al. [2024] investigates prompt leakage effects
+in multi-turn LLM interactions, proposing defense strategies and evaluating their effectiveness. Yang
+et al. [2024b] introduces PRSA, a prompt stealing attack framework that analyzes input-output content
+to generate surrogate prompts, demonstrating its effectiveness against real-world prompt services.
+7.2
+
+Robustness, Human Factors and Ethical Considerations
+
+Researchers are exploring the impact of Unicode characters on LLM security and comprehension,
+developing personalized encryption frameworks for jailbreaking, and addressing exaggerated safety
+behaviors in LLMs.
+Zhao et al. [2023a] proposes GPTBIAS, a comprehensive framework for evaluating bias in LLMs,
+leveraging the capabilities of advanced LLMs for assessment and interpretability. Chatrath et al.
+[2023] introduces a unique test suite of prompts for evaluating LLM alignment, focusing on fairness,
+safety, and robustness. Liu et al. [2024b] proposes Arondight, a red-teaming framework for VLMs that
+utilizes automated multi-modal jailbreak prompt generation, exposing vulnerabilities in toxic image
+generation and multimodal alignment. Cao et al. [2023] introduces RA-LLM, a robustly aligned LLM
+that incorporates a robust alignment checking function to defend against alignment-breaking attacks.
+Hasegawa et al. [2024] proposes AutoRed, a framework for automating red team assessments using
+reinforcement learning and strategic thinking, demonstrating its effectiveness in discovering network
+vulnerabilities. Zhang et al. [2024a] examines the human factor in AI red teaming, highlighting the
+importance of considering human biases, blindspots, and potential psychological harms during redteaming activities. Abdelnabi et al. [2024] proposes activation-based methods for detecting task drift
+in LLMs, emphasizing the importance of analyzing internal model states for security. Khomsky et al.
+[2024] investigates black-box attacks on defended LLMs, highlighting the challenges and significance
+of adversarial attacks in real-world scenarios. Liang et al. [2024] analyzes prompt extraction threats,
+investigating the underlying mechanisms of prompt memorization and proposing defense strategies
+to mitigate such risks. Evertz et al. [2024] explores confidentiality issues in LLM-integrated systems,
+proposing a secret key game for evaluating confidentiality and investigating robustness fine-tuning
+techniques for improving system resilience.
+
+8
+
+Lessons Learned and Future Research
+
+Red-teaming research has significantly advanced our understanding of LLM vulnerabilities and the
+effectiveness of various attack and defense strategies. Several important lessons have emerged from
+this research, including:
+8
+
+1. LLMs are vulnerable to a wide range of attacks: Even safety-aligned LLMs can be
+manipulated to produce harmful content, highlighting the need for continuous vigilance and
+robust defenses.
+2. Black-box attacks pose significant challenges: As many real-world LLM APIs are blackbox, developing effective black-box attacks and defenses is crucial for securing LLM
+deployments.
+3. Prompt engineering is crucial for both attack and defense: The structure, content,
+and phrasing of prompts can significantly impact the success of jailbreak attacks and the
+effectiveness of defenses.
+4. Multimodal and multilingual LLMs introduce new vulnerabilities: The integration of
+visual and multilingual capabilities expands the attack surface and requires new defensive
+strategies.
+Future research directions in LLM red-teaming include:
+• Developing more sophisticated black-box attack and defense methods: As black-box
+LLMs are increasingly prevalent, research should focus on developing novel techniques that
+require minimal model access.
+• Investigating the transferability and generalization of attacks: Understanding the factors
+that influence the transferability of jailbreak attacks across different LLMs is crucial for
+developing robust defenses.
+• Exploring the use of human-AI collaboration for red-teaming: Combining human
+expertise with automated methods can lead to more effective and efficient red-teaming
+strategies.
+• Addressing the ethical and societal implications of LLM red-teaming: As red-teaming
+research becomes more sophisticated, it is important to consider the potential ethical and
+societal implications of developing and deploying powerful attack methods.
+
+9
+
+Conclusion
+
+The growing field of LLM red-teaming has made significant progress in uncovering vulnerabilities
+and developing both attack and defense strategies. Continued research in this area is crucial for
+ensuring the responsible development and deployment of LLMs, fostering a safer and more secure AI
+ecosystem. By understanding the limitations and vulnerabilities of LLMs, researchers and developers
+can work collaboratively to develop robust safeguards and mitigation strategies that promote the
+beneficial and ethical use of these powerful language models.
+These diverse applications of red-teaming principles highlight its importance not only for LLM
+security but also for a wider range of AI systems and real-world applications.
+
+References
+Sahar Abdelnabi, Aideen Fay, Giovanni Cherubin, Ahmed Salem, Mario Fritz, and Andrew Paverd.
+Are you still on track!? catching llm task drift with activations, 2024.
+Divyansh Agarwal, A. R. Fabbri, Philippe Laban, Shafiq R. Joty, Caiming Xiong, and Chien-Sheng
+Wu. Prompt leakage effect and defense strategies for multi-turn llm interactions, 2024.
+Bang An, Sicheng Zhu, Ruiyi Zhang, Michael-Andrei Panaitescu-Liess, Yuancheng Xu, and Furong
+Huang. Automatic pseudo-harmful prompt generation for evaluating false refusals in large language
+models, 2024.
+Maksym Andriushchenko, Francesco Croce, and Nicolas Flammarion. Jailbreaking leading safetyaligned llms with simple adaptive attacks, 2024.
+Rishabh Bhardwaj and Soujanya Poria. Red-teaming large language models using chain of utterances
+for safety-alignment, 2023.
+9
+
+Bochuan Cao, Yu Cao, Lu Lin, and Jinghui Chen. Defending against alignment-breaking attacks via
+robustly aligned llm, 2023.
+Stephen Casper, Jason Lin, Joe Kwon, Gatlen Culp, and Dylan Hadfield-Menell. Explore, establish,
+exploit: Red teaming language models from scratch, 2023.
+Patrick Chao, Alexander Robey, Edgar Dobriban, Hamed Hassani, George J. Pappas, and Eric Wong.
+Jailbreaking black box large language models in twenty queries, 2023.
+Patrick Chao, Edoardo Debenedetti, Alexander Robey, Maksym Andriushchenko, Francesco Croce,
+Vikash Sehwag, Edgar Dobriban, Nicolas Flammarion, George J. Pappas, F. Tramèr, Hamed
+Hassani, and Eric Wong. Jailbreakbench: An open robustness benchmark for jailbreaking large
+language models, 2024.
+Veronica Chatrath, Oluwanifemi Bamgbose, and Shaina Raza. She had cobalt blue eyes: Prompt
+testing to create aligned and sustainable language models, 2023.
+Bocheng Chen, Advait Paliwal, and Qiben Yan. Jailbreaker in jail: Moving target defense for large
+language models, 2023.
+Jiawei Chen, Xiao Yang, Zhengwei Fang, Yu Tian, Yinpeng Dong, Zhaoxia Yin, and Hang Su.
+Autobreach: Universal and adaptive jailbreaking with efficient wordplay-guided optimization,
+2024a.
+Sizhe Chen, Julien Piet, Chawin Sitawarin, and David Wagner. Struq: Defending against prompt
+injection with structured queries, 2024b.
+Xuan Chen, Yuzhou Nie, Lu Yan, Yunshu Mao, Wenbo Guo, and Xiangyu Zhang. Rl-jack: Reinforcement learning-powered black-box jailbreaking attack against llms, 2024c.
+Steffi Chern, Zhen Fan, and Andy Liu. Combating adversarial attacks with multi-agent debate, 2024.
+Nilanjana Das, Edward Raff, and Manas Gaur. Human-interpretable adversarial prompt attack on
+large language models with situational context, 2024.
+Boyi Deng, Wenjie Wang, Fuli Feng, Yang Deng, Qifan Wang, and Xiangnan He. Attack prompt
+generation for red teaming and defending large language models, 2023a.
+Gelei Deng, Yi Liu, Yuekang Li, Kailong Wang, Ying Zhang, Zefeng Li, Haoyu Wang, Tianwei
+Zhang, and Yang Liu. Jailbreaker: Automated jailbreak across multiple large language model
+chatbots, 2023b.
+Gelei Deng, Yi Liu, Yuekang Li, Kailong Wang, Ying Zhang, Zefeng Li, Haoyu Wang, Tianwei
+Zhang, and Yang Liu. Masterkey: Automated jailbreaking of large language model chatbots,
+2023c.
+Gelei Deng, Yi Liu, Kailong Wang, Yuekang Li, Tianwei Zhang, and Yang Liu. Pandora: Jailbreak
+gpts by retrieval augmented generation poisoning, 2024.
+Mingkai Deng, Jianyu Wang, Cheng-Ping Hsieh, Yihan Wang, Han Guo, Tianmin Shu, Meng Song,
+E. Xing, and Zhiting Hu. Rlprompt: Optimizing discrete text prompts with reinforcement learning,
+2022.
+Peng Ding, Jun Kuang, Dan Ma, Xuezhi Cao, Yunsen Xian, Jiajun Chen, and Shujian Huang. A wolf
+in sheep’s clothing: Generalized nested jailbreak prompts can fool large language models easily,
+2023.
+M. Doumbouya, Ananjan Nandi, Gabriel Poesia, Davide Ghilardi, Anna Goldie, Federico Bianchi,
+Daniel Jurafsky, and Christopher D. Manning. h4rm3l: A dynamic benchmark of composable
+jailbreak attacks for llm safety assessment, 2024.
+Jonathan Evertz, Merlin Chlosta, Lea Schönherr, and Thorsten Eisenhofer. Whispers in the machine:
+Confidentiality in llm-integrated systems, 2024.
+10
+
+Yingchaojie Feng, Zhizhang Chen, Zhining Kang, Sijia Wang, Minfeng Zhu, Wei Zhang, and Wei
+Chen. Jailbreaklens: Visual analysis of jailbreak attacks against large language models, 2024.
+Suyu Ge, Chunting Zhou, Rui Hou, Madian Khabsa, Yi-Chia Wang, Qifan Wang, Jiawei Han, and
+Yuning Mao. Mart: Improving llm safety with multi-round automatic red-teaming, 2023.
+Ryan Greenblatt, Buck Shlegeris, Kshitij Sachan, and Fabien Roger. Ai control: Improving safety
+despite intentional subversion, 2023.
+Kai Greshake, Sahar Abdelnabi, Shailesh Mishra, C. Endres, Thorsten Holz, and Mario Fritz. Not
+what you’ve signed up for: Compromising real-world llm-integrated applications with indirect
+prompt injection, 2023.
+Hossein Hajipour, Thorsten Holz, Lea Schonherr, and Mario Fritz. Codelmsec benchmark: Systematically evaluating and finding security vulnerabilities in black-box code language models,
+2023.
+Amelia F. Hardy, Houjun Liu, Bernard Lange, and Mykel J. Kochenderfer. Astprompter: Weakly
+supervised automated language model red-teaming to identify likely toxic prompts, 2024.
+Kento Hasegawa, Seira Hidano, and Kazuhide Fukushima. Autored: Automating red team assessment
+via strategic thinking using reinforcement learning, 2024.
+Alec Helbling, Mansi Phute, Matthew Hull, and Duen Horng Chau. Llm self defense: By self
+examination, llms know they are being tricked, 2023.
+Keegan Hines, Gary Lopez, Matthew Hall, Federico Zarfati, Yonatan Zunger, and Emre Kiciman.
+Defending against indirect prompt injection attacks with spotlighting, 2024.
+Zhang-Wei Hong, Idan Shenfeld, T. Wang, Yung-Sung Chuang, Aldo Pareja, James Glass, Akash
+Srivastava, and Pulkit Agrawal. Curiosity-driven red-teaming for large language models, 2024.
+Zhengmian Hu, Gang Wu, Saayan Mitra, Ruiyi Zhang, Tong Sun, Heng Huang, and Vishy Swaminathan. Token-level adversarial prompt detection based on perplexity measures and contextual
+information, 2023.
+Yangsibo Huang, Samyak Gupta, Mengzhou Xia, Kai Li, and Danqi Chen. Catastrophic jailbreak of
+open-source llms via exploiting generation, 2023.
+Yue Huang, Jingyu Tang, Dongping Chen, Bingda Tang, Yao Wan, Lichao Sun, and Xiangliang
+Zhang. Obscureprompt: Jailbreaking large language models via obscure input, 2024a.
+Zisu Huang, Xiaohua Wang, Feiran Zhang, Zhibo Xu, Cenyuan Zhang, Xiaoqing Zheng, and Xuanjing
+Huang. Enhancing the capability and robustness of large language models through reinforcement
+learning-driven query refinement, 2024b.
+Bo Hui, Haolin Yuan, Neil Gong, Philippe Burlina, and Yinzhi Cao. Pleak: Prompt leaking attacks
+against large language model applications, 2024.
+Neel Jain, Avi Schwarzschild, Yuxin Wen, Gowthami Somepalli, John Kirchenbauer, Ping yeh
+Chiang, Micah Goldblum, Aniruddha Saha, Jonas Geiping, and Tom Goldstein. Baseline defenses
+for adversarial attacks against aligned language models, 2023.
+Hussein Jawad and Nicolas J.-B. Brunel. Qroa: A black-box query-response optimization attack on
+llms, 2024.
+Jiaming Ji, Donghai Hong, Borong Zhang, Boyuan Chen, Josef Dai, Boren Zheng, Tianyi Qiu, Boxun
+Li, and Yaodong Yang. Pku-saferlhf: A safety alignment preference dataset for llama family
+models, 2024.
+Xiaojun Jia, Tianyu Pang, Chao Du, Yihao Huang, Jindong Gu, Yang Liu, Xiaochun Cao, and Min
+Lin. Improved techniques for optimization-based jailbreaking on large language models, 2024.
+Bojian Jiang, Yi Jing, Tianhao Shen, Qing Yang, and Deyi Xiong. Dart: Deep adversarial automated
+red teaming for llm safety, 2024.
+11
+
+Haibo Jin, Ruoxi Chen, Andy Zhou, Jinyin Chen, Yang Zhang, and Haohan Wang. Guard: Roleplaying to generate natural-language jailbreakings to test guideline adherence of large language
+models, 2024.
+Mohammad Bahrami Karkevandi, Nishant Vishwamitra, and Peyman Najafirad. Can reinforcement
+learning unlock the hidden dangers in aligned large language models?, 2024.
+Aly M. Kassem, Omar Mahmoud, Niloofar Mireshghallah, Hyunwoo Kim, Yulia Tsvetkov, Yejin
+Choi, Sherif Saad, and Santu Rana. Alpaca against vicuna: Using llms to uncover memorization of
+llms, 2024.
+Daniil Khomsky, Narek Maloyan, and Bulat Nutfullin. Prompt injection attacks in defended systems,
+2024.
+Jinhwa Kim, Ali Derakhshan, and Ian G. Harris. Robust safety classifier against jailbreaking attacks:
+Adversarial prompt shield, 2024.
+Anna Kruspe. Towards detecting unanticipated bias in large language models, 2024.
+Divyanshu Kumar, Anurakt Kumar, Sahil Agarwal, and P. Harshangi. Fine-tuning, quantization, and
+llms: Navigating unintended outcomes, 2024.
+Raz Lapid, Ron Langberg, and Moshe Sipper. Open sesame! universal black box jailbreaking of
+large language models, 2023.
+Deokjae Lee, JunYeong Lee, Jung-Woo Ha, Jin-Hwa Kim, Sang-Woo Lee, Hwaran Lee, and Hyun Oh
+Song. Query-efficient black-box red teaming via bayesian optimization, 2023.
+Seanie Lee, Minsu Kim, Lynn Cherif, David Dobre, Juho Lee, Sung Ju Hwang, Kenji Kawaguchi,
+Gauthier Gidel, Y. Bengio, Nikolay Malkin, and Moksh Jain. Learning diverse attacks on large
+language models for robust red-teaming and safety tuning, 2024.
+Bangxin Li, Hengrui Xing, Chao Huang, Jin Qian, Huangqing Xiao, Linfeng Feng, and Cong Tian.
+Exploiting uncommon text-encoded structures for automated jailbreaks in llms, 2024a.
+Guanlin Li, Kangjie Chen, Shudong Zhang, Jie Zhang, and Tianwei Zhang. Art: Automatic redteaming for text-to-image models to protect benign users, 2024b.
+Qizhang Li, Yiwen Guo, Wangmeng Zuo, and Hao Chen. Improved generation of adversarial
+examples against safety-aligned llms, 2024c.
+Xirui Li, Ruochen Wang, Minhao Cheng, Tianyi Zhou, and Cho-Jui Hsieh. Drattack: Prompt
+decomposition and reconstruction makes powerful llm jailbreakers, 2024d.
+Yuxi Li, Yi Liu, Yuekang Li, Ling Shi, Gelei Deng, Shengquan Chen, and Kailong Wang. Lockpicking
+llms: A logit-based jailbreak using token-level manipulation, 2024e.
+Zekun Li, Baolin Peng, Pengcheng He, and Xifeng Yan. Evaluating the instruction-following
+robustness of large language models to prompt injection, 2023.
+Zi Liang, Haibo Hu, Qingqing Ye, Yaxin Xiao, and Haoyang Li. Why are my prompts leaked?
+unraveling prompt extraction threats in customized large language models, 2024.
+Shi Lin, Rongchang Li, Xun Wang, Changting Lin, Wenpeng Xing, and Meng Han. Figure it out:
+Analyzing-based jailbreak attack on large language models, 2024a.
+Yuping Lin, Pengfei He, Han Xu, Yue Xing, Makoto Yamada, Hui Liu, and Jiliang Tang. Towards
+understanding jailbreak attacks in llms: A representation space analysis, 2024b.
+Bowen Liu, Boao Xiao, Xutong Jiang, Siyuan Cen, Xin He, and Wanchun Dou. Adversarial attacks
+on large language model-based system and mitigating strategies: A case study on chatgpt, 2023a.
+Chengyuan Liu, Fubang Zhao, Lizhi Qing, Yangyang Kang, Changlong Sun, Kun Kuang, and Fei
+Wu. Goal-oriented prompt attack and safety evaluation for llms, 2023b.
+12
+
+Jiaxu Liu, Xiangyu Yin, Sihao Wu, Jianhong Wang, Meng Fang, Xinping Yi, and Xiaowei Huang.
+Tiny refinements elicit resilience: Toward efficient prefix-model against llm red-teaming, 2024a.
+Xiaogeng Liu, Nan Xu, Muhao Chen, and Chaowei Xiao. Autodan: Generating stealthy jailbreak
+prompts on aligned large language models, 2023c.
+Yi Liu, Gelei Deng, Zhengzi Xu, Yuekang Li, Yaowen Zheng, Ying Zhang, Lida Zhao, Tianwei
+Zhang, and Yang Liu. Jailbreaking chatgpt via prompt engineering: An empirical study, 2023d.
+Yi Liu, Chengjun Cai, Xiaoli Zhang, Xingliang Yuan, and Cong Wang. Arondight: Red teaming
+large vision language models with auto-generated multi-modal jailbreak prompts, 2024b.
+Yupei Liu, Yuqi Jia, Runpeng Geng, Jinyuan Jia, and N. Gong. Formalizing and benchmarking
+prompt injection attacks and defenses, 2023e.
+Rodrigo Revilla Llaca, Victoria Leskoschek, Vitor Costa Paiva, Cătălin Lupău, Philip Lippmann, and
+Jie Yang. Student-teacher prompting for red teaming to improve guardrails, 2023.
+Lin Lu, Hai Yan, Zenghui Yuan, Jiawen Shi, Wenqi Wei, Pin-Yu Chen, and Pan Zhou. Autojailbreak:
+Exploring jailbreak attacks and defenses through a dependency lens, 2024.
+Lijia Lv, Weigang Zhang, Xuehai Tang, Jie Wen, Feng Liu, Jizhong Han, and Songlin Hu. Adappa:
+Adaptive position pre-fill jailbreak attack approach targeting llms, 2024.
+Neal Mangaokar, Ashish Hooda, Jihye Choi, Shreyas Chandrashekaran, Kassem Fawaz, Somesh
+Jha, and Atul Prakash. Prp: Propagating universal perturbations to attack large language model
+guard-rails, 2024.
+Mantas Mazeika, Long Phan, Xuwang Yin, Andy Zou, Zifan Wang, Norman Mu, Elham Sakhaee,
+Nathaniel Li, Steven Basart, Bo Li, David Forsyth, and Dan Hendrycks. Harmbench: A standardized evaluation framework for automated red teaming and robust refusal, 2024.
+Ninareh Mehrabi, Palash Goyal, Christophe Dupuy, Qian Hu, Shalini Ghosh, R. Zemel, Kai-Wei
+Chang, A. Galstyan, and Rahul Gupta. Flirt: Feedback loop in-context red teaming, 2023a.
+Ninareh Mehrabi, Palash Goyal, Anil Ramakrishna, J. Dhamala, Shalini Ghosh, Richard Zemel,
+Kai-Wei Chang, A. Galstyan, and Rahul Gupta. Jab: Joint adversarial prompting and belief
+augmentation, 2023b.
+Anay Mehrotra, Manolis Zampetakis, Paul Kassianik, Blaine Nelson, Hyrum Anderson, Yaron Singer,
+and Amin Karbasi. Tree of attacks: Jailbreaking black-box llms automatically, 2023.
+Lingbo Mo, Zeyi Liao, Boyuan Zheng, Yu Su, Chaowei Xiao, and Huan Sun. A trembling house of
+cards? mapping adversarial attacks against language agents, 2024a.
+Yichuan Mo, Yuji Wang, Zeming Wei, and Yisen Wang. Fight back against jailbreaking via prompt
+adversarial tuning, 2024b.
+Robert J. Moss. Kov: Transferable and naturalistic black-box llm attacks using markov decision
+processes and tree search, 2024.
+C. Nguyen, Caleb Morgan, and Sudip Mittal. Cti4ai: Threat intelligence generation and sharing after
+red teaming ai models, 2022.
+Zhenxing Niu, Yuyao Sun, Haodong Ren, Haoxuan Ji, Quan Wang, Xiaoke Ma, Gang Hua, and Rong
+Jin. Efficient llm-jailbreaking by introducing visual modality, 2024.
+Tej Deep Pala, Vernon Y.H. Toh, Rishabh Bhardwaj, and Soujanya Poria. Ferret: Faster and effective
+automated red teaming with reward-based scoring technique, 2024.
+Anselm Paulus, Arman Zharmagambetov, Chuan Guo, Brandon Amos, and Yuandong Tian. Advprompter: Fast adaptive adversarial prompting for llms, 2024.
+13
+
+Ethan Perez, Saffron Huang, Francis Song, Trevor Cai, Roman Ring, John Aslanides, Amelia Glaese,
+Nat McAleese, and G. Irving. Red teaming language models with language models. In Proceedings
+of the 2022 Conference on Empirical Methods in Natural Language Processing, pages 3419–3448,
+2022. doi: 10.18653/v1/2022.emnlp-main.225.
+Fábio Perez and Ian Ribeiro. Ignore previous prompt: Attack techniques for language models, 2022.
+Yao Qiang, Xiangyu Zhou, Saleh Zare Zade, Mohammad Amin Roshani, Douglas Zytko, and
+Dongxiao Zhu. Learning to poison large language models during instruction tuning, 2024.
+Govind Ramesh, Yao Dou, and Wei Xu. Gpt-4 jailbreaks itself with near-perfect success using
+self-explanation, 2024.
+Ahmed Salem, Andrew J. Paverd, and Boris Köpf. Maatphor: Automated variant analysis for prompt
+injection attacks, 2023.
+Mikayel Samvelyan, S. Raparthy, Andrei Lupu, Eric Hambro, Aram H. Markosyan, Manish Bhatt,
+Yuning Mao, Minqi Jiang, Jack Parker-Holder, Jakob Foerster, Tim Rocktaschel, and Roberta
+Raileanu. Rainbow teaming: Open-ended generation of diverse adversarial prompts, 2024.
+Sander Schulhoff, Jeremy Pinto, Anaum Khan, Louis-Franccois Bouchard, Chenglei Si, Svetlina
+Anati, Valen Tagliabue, Anson Liu Kost, Christopher Carnahan, and Jordan L. Boyd-Graber. Ignore
+this title and hackaprompt: Exposing systemic vulnerabilities of llms through a global scale prompt
+hacking competition, 2023.
+Guangyu Shen, Siyuan Cheng, Kai xian Zhang, Guanhong Tao, Shengwei An, Lu Yan, Zhuo Zhang,
+Shiqing Ma, and Xiangyu Zhang. Rapid optimization for jailbreaking llms via subconscious
+exploitation and echopraxia, 2024.
+Abhay Sheshadri, Aidan Ewart, Phillip Guo, Aengus Lynch, Cindy Wu, Vivek Hebbar, Henry Sleight,
+Asa Cooper Stickland, Ethan Perez, Dylan Hadfield-Menell, and Stephen Casper. Latent adversarial
+training improves robustness to persistent harmful behaviors in llms, 2024.
+Yundi Shi, Piji Li, Changchun Yin, Zhaoyang Han, Lu Zhou, and Zhe Liu. Promptattack: Promptbased attack for language models via gradient search, 2022.
+Chawin Sitawarin, Norman Mu, David Wagner, and Alexandre Araujo. Pal: Proxy-guided black-box
+attack on large language models, 2024.
+Anugya Srivastava, Rahul Ahuja, and Rohith Mukku. No offense taken: Eliciting offensiveness from
+language models, 2023.
+Xiongtao Sun, Deyue Zhang, Dongdong Yang, Quanchen Zou, and Hui Li. Multi-turn context
+jailbreak attack on large language models from first principles, 2024.
+Zihao Tan, Qingliang Chen, Wenbin Zhu, and Yongjian Huang. Cover: A heuristic greedy adversarial
+attack on prompt-based learning in language models, 2023.
+Pittawat Taveekitworachai, Febri Abdullah, Mustafa Can Gursesli, Antonio Lanatà, Andrea Guazzini,
+and R. Thawonmas. Prompt evolution through examples for large language models–a case study
+in game comment toxicity classification, 2024.
+Yu Tian, Xiao Yang, Jingyuan Zhang, Yinpeng Dong, and Hang Su. Evil geniuses: Delving into the
+safety of llm-based agents, 2023.
+S. Toyer, Olivia Watkins, Ethan Mendes, Justin Svegliato, Luke Bailey, Tiffany Wang, Isaac Ong,
+Karim Elmaaroufi, Pieter Abbeel, Trevor Darrell, Alan Ritter, and Stuart Russell. Tensor trust:
+Interpretable prompt injection attacks from an online game, 2023.
+Hao Wang, Hao Li, Minlie Huang, and Lei Sha. Asetf: A novel method for jailbreak attack on llms
+through translate suffix embeddings, 2024a.
+Xiangwen Wang, Jie Peng, Kaidi Xu, Huaxiu Yao, and Tianlong Chen. Reinforcement learning-driven
+llm agent for automated attacks on llms, 2024b.
+14
+
+Xunguang Wang, Daoyuan Wu, Zhenlan Ji, Zongjie Li, Pingchuan Ma, Shuaibao Wang, Yingjiu
+Li, Yang Liu, Ning Liu, and Juergen Rahmel. Selfdefend: Llms can defend themselves against
+jailbreaking in a practical manner, 2024c.
+Zhenhua Wang, Wei Xie, Kai Chen, Baosheng Wang, Zhiwen Gui, and Enze Wang. Self-deception:
+Reverse penetrating the semantic firewall of large language models, 2023.
+Nevan Wichers, Carson E. Denison, and Ahmad Beirami. Gradient-based language model red
+teaming, 2024.
+Daoyuan Wu, Shuaibao Wang, Yang Liu, and Ning Liu. Llms can defend themselves against
+jailbreaking in a practical manner: A vision paper, 2024a.
+Yuanwei Wu, Xiang Li, Yixin Liu, Pan Zhou, and Lichao Sun. Jailbreaking gpt-4v via self-adversarial
+attacks with system prompts, 2023.
+Yuanwei Wu, Yue Huang, Yixin Liu, Xiang Li, Pan Zhou, and Lichao Sun. Can large language
+models automatically jailbreak gpt-4v?, 2024b.
+Zeguan Xiao, Yan Yang, Guanhua Chen, and Yun Chen. Tastle: Distract large language models for
+automatic jailbreak attack, 2024.
+Huiyu Xu, Wenhui Zhang, Zhibo Wang, Feng Xiao, Rui Zheng, Yunhe Feng, Zhongjie Ba, and Kui
+Ren. Redagent: Red teaming large language models with context-aware autonomous language
+agent, 2024a.
+Nan Xu, Fei Wang, Ben Zhou, Bangzheng Li, Chaowei Xiao, and Muhao Chen. Cognitive overload:
+Jailbreaking large language models with overloaded logical thinking, 2023a.
+Qianqiao Xu, Zhiliang Tian, Hongyan Wu, Zhen Huang, Yiping Song, Feng Liu, and Dongsheng Li.
+Learn to disguise: Avoid refusal responses in llm’s defense via a multi-agent attacker-disguiser
+game, 2024b.
+Xilie Xu, Keyi Kong, Ninghao Liu, Li zhen Cui, Di Wang, Jingfeng Zhang, and Mohan S. Kankanhalli.
+An llm can fool itself: A prompt-based adversarial attack, 2023b.
+Zhangchen Xu, Fengqing Jiang, Luyao Niu, Jinyuan Jia, Bill Yuchen Lin, and R. Poovendran.
+Safedecoding: Defending against jailbreak attacks via safety-aware decoding, 2024c.
+Zhuoer Xu, Jianping Zhang, Shiwen Cui, Changhua Meng, and Weiqiang Wang. Troublellm: Align
+to red team expert, 2024d.
+Yan Yang, Zeguan Xiao, Xin Lu, Hongru Wang, Hailiang Huang, Guanhua Chen, and Yun Chen.
+Sop: Unlock the power of social facilitation for automatic jailbreak attack, 2024a.
+Yong Yang, Changjiang Li, Yi Jiang, Xi Chen, Haoyu Wang, Xuhong Zhang, Zonghui Wang, and
+Shouling Ji. Prsa: Prompt stealing attacks against large language models, 2024b.
+Yuting Yang, Pei Huang, Juan Cao, Jintao Li, Yun Lin, J. Dong, Feifei Ma, and Jian Zhang. A
+prompting-based approach for adversarial example generation and robustness enhancement, 2022.
+Zeyu Yang, Zhao Meng, Xiaochen Zheng, and R. Wattenhofer. Assessing adversarial robustness of
+large language models: An empirical study, 2024c.
+Dongyu Yao, Jianshu Zhang, Ian G. Harris, and Marcel Carlsson. Fuzzllm: A novel and universal
+fuzzing framework for proactively discovering jailbreak vulnerabilities in large language models,
+2023.
+Jingwei Yi, Yueqi Xie, Bin Zhu, Keegan Hines, Emre Kiciman, Guangzhong Sun, Xing Xie, and
+Fangzhao Wu. Benchmarking and defending against indirect prompt injection attacks on large
+language models, 2023.
+Jiahao Yu, Xingwei Lin, Zheng Yu, and Xinyu Xing. Gptfuzzer: Red teaming large language models
+with auto-generated jailbreak prompts, 2023.
+15
+
+Jiahao Yu, Xingwei Lin, Zheng Yu, and Xinyu Xing. Llm-fuzzer: Scaling assessment of large
+language model jailbreaks, 2024.
+Canaan Yung, H. M. Dolatabadi, S. Erfani, and Christopher Leckie. Round trip translation defence
+against large language model jailbreaking attacks, 2024.
+Alice Qian Zhang, Ryland Shaw, Jacy Reese Anthis, Ashlee Milton, Emily Tseng, Jina Suh, Lama
+Ahmad, Ram Shankar Siva Kumar, Julian Posada, Benjamin Shestakofsky, Sarah T. Roberts, and
+Mary L. Gray. The human factor in ai red teaming: Perspectives from social and collaborative
+computing, 2024a.
+Jiahao Zhang, Zilong Wang, Ruofan Wang, Xingjun Ma, and Yu-Gang Jiang. Enja: Ensemble
+jailbreak on large language models, 2024b.
+Tianrong Zhang, Bochuan Cao, Yuanpu Cao, Lu Lin, Prasenjit Mitra, and Jinghui Chen. Wordgame:
+Efficient & effective llm jailbreak via simultaneous obfuscation in query and response, 2024c.
+Xu Zhang and Xiaojun Wan. Dpp-based adversarial prompt searching for lanugage models, 2024.
+Andrew Zhao, Quentin Xu, Matthieu Lin, Shenzhi Wang, Yong-Jin Liu, Zilong Zheng, and Gao
+Huang. Diver-ct: Diversity-enhanced red teaming with relaxing constraints, 2024a.
+Jiaxu Zhao, Meng Fang, Shirui Pan, Wenpeng Yin, and Mykola Pechenizkiy. Gptbias: A comprehensive framework for evaluating bias in large language models, 2023a.
+Shuai Zhao, Jinming Wen, Anh Tuan Luu, J. Zhao, and Jie Fu. Prompt as triggers for backdoor
+attack: Examining the vulnerability in language models, 2023b.
+Wei Zhao, Zhe Li, Yige Li, Ye Zhang, and Junfeng Sun. Defending large language models against
+jailbreak attacks via layer-specific editing, 2024b.
+Jingyan Zhou, Kun Li, Junan Li, Jiawen Kang, Minda Hu, Xixin Wu, and Helen M. Meng. Purpleteaming llms with adversarial defender training, 2024a.
+Weikang Zhou, Xiao Wang, Limao Xiong, Han Xia, Yingshuang Gu, Mingxu Chai, Fukang Zhu,
+Caishuang Huang, Shihan Dou, Zhiheng Xi, Rui Zheng, Songyang Gao, Yicheng Zou, Hang
+Yan, Yifan Le, Ruohui Wang, Lijun Li, Jing Shao, Tao Gui, Qi Zhang, and Xuanjing Huang.
+Easyjailbreak: A unified framework for jailbreaking large language models, 2024b.
+Yuqi Zhou, Lin Lu, Hanchi Sun, Pan Zhou, and Lichao Sun. Virtual context: Enhancing jailbreak
+attacks with special token injection, 2024c.
+
+16
+
+
